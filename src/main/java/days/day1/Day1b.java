@@ -21,7 +21,7 @@ public class Day1b {
 
         while (scanner.hasNextInt()) {
             int tempInt = scanner.nextInt();
-            if (tempInt >= 1000) {
+            if (tempInt >= target / 2) {
                 highNumbers.add(tempInt);
             } else {
                 lowNumbers.add(tempInt);
