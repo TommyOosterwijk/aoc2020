@@ -1,5 +1,5 @@
-import day1.Day1a;
-import day1.Day1b;
+import days.day1.Day1a;
+import days.day1.Day1b;
 
 public class Main {
     public static void main(String args[]) throws Exception {
