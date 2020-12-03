@@ -36,14 +36,11 @@ public class Day3 {
 
     private int countTrees(int right, int down) {
         int treesFound = 0;
-        int maxPosX = grid.get(0).size() -1;
+        int maxPosX = grid.get(0).size();
         int posX = 0;
 
         for( int i = down; i < grid.size(); i += down) {
-            posX += right;
-            if(posX > maxPosX) {
-                posX = posX - maxPosX - 1;
-            }
+            posX = (posX + right) % maxPosX;
 
             if(grid.get(i).get(posX) == 1) {
                 treesFound++;
