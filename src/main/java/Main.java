@@ -3,6 +3,7 @@ import days.day1.Day1b;
 import days.day2.Day2;
 import days.day3.Day3;
 import days.day4.Day4;
+import days.day5.Day5;
 
 public class Main {
     public static void main(String args[]) throws Exception {
@@ -17,6 +18,7 @@ public class Main {
 
         Day3 day3 = new Day3();
         Day4 day4 = new Day4();
+        Day5 day5 = new Day5();
 
     }
 }
