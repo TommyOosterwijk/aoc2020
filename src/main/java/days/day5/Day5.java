@@ -29,6 +29,8 @@ public class Day5 {
 
         Collections.sort(boardingPassList, (pass1, pass2) -> pass2.getBinaryRightSide().compareTo(pass1.getBinaryRightSide()));
         calculateSeat(boardingPassList.get(0));
+
+        Day5b day5b = new Day5b();
     }
 
     private void calculateSeat(BoardingPass bp) {
