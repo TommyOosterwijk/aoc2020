@@ -5,6 +5,7 @@ import utils.Utils;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Day7 {
@@ -13,7 +14,7 @@ public class Day7 {
     ArrayList<Bag> bagList = new ArrayList<>();
 
     public Day7() throws FileNotFoundException, URISyntaxException {
-        Scanner scanner = utils.getScannerFromFileName("Day7-example.txt");
+        Scanner scanner = utils.getScannerFromFileName("Day7.txt");
         int goldBagCounter = 0;
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -26,7 +27,6 @@ public class Day7 {
             bag.setBagColor(array[0]);
 
             if(!array[1].contains("no other")) {
-
                 String[] childBags = array[1].split(", ");
 
                 for (String child : childBags) {
@@ -44,8 +44,9 @@ public class Day7 {
                 goldBagCounter++;
             }
         }
-
         System.out.println("Day7 = " + goldBagCounter + " bags that contain gold. (self or by child)");
+
+        System.out.println("Day7b = " + (countChildBags("shiny gold", 1) -1) + " bags within the gold bag.");
     }
 
 
@@ -55,5 +56,18 @@ public class Day7 {
                 countParentBags(bag.getBagColor());
             }
         }
+    }
+
+    private int countChildBags(String bagToFind, int amountOfBags) {
+        int counter = amountOfBags;
+        for(Bag bag : bagList) {
+            if(bag.getBagColor().equals(bagToFind)) {
+                for (Map.Entry<String, Integer> childBag : bag.getBagContainer().entrySet()) {
+                    counter += (amountOfBags * countChildBags(childBag.getKey(), childBag.getValue()));
+                }
+
+            }
+        }
+        return counter;
     }
 }

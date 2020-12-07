@@ -15,6 +15,10 @@ public class Bag {
         bagContainer.put(bagName, amount);
     }
 
+    public Map<String, Integer> getBagContainer () {
+        return this.bagContainer;
+    }
+
     public boolean hasBagThatContainsGold(String bagName) {
         if(!hasGold) {
             hasGold = bagContainer.containsKey(bagName);
