@@ -36,6 +36,8 @@ public class Day10 {
         }
         System.out.println("Day 10 =" + (oneJolt * threeJolt));
 
+        Day10b day10b = new Day10b();
+
     }
 
     private void addAdapterJointToCount(int jointDifference) {
