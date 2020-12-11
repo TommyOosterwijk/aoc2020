@@ -1,6 +1,7 @@
 import days.day1.Day1a;
 import days.day1.Day1b;
 import days.day10.Day10;
+import days.day11.Day11;
 import days.day2.Day2;
 import days.day3.Day3;
 import days.day4.Day4;
@@ -29,6 +30,7 @@ public class Main {
         Day8 day8 = new Day8();
         Day9 day9 = new Day9();
         Day10 day10 = new Day10();
+        Day11 day11 = new Day11();
 
     }
 }
