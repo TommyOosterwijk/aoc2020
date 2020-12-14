@@ -16,7 +16,7 @@ public class Day13 {
 
 
     public Day13() throws FileNotFoundException, URISyntaxException {
-        Scanner scanner = utils.getScannerFromFileName("Day13.txt");
+        Scanner scanner = utils.getScannerFromFileName("Day13-example.txt");
         boolean firstLine = true;
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -26,17 +26,26 @@ public class Day13 {
                 firstLine = false;
             } else {
                 line = line.replaceAll("x,", "");
-                for(String stringID : line.split(",")) {
-                    int id = Integer.parseInt(stringID);
-                    long dividedBy =  timestamp / id;
-                    long timeToWait = ((dividedBy+1) * id) - timestamp;
-                    if( timeToWait < lowestTimeToWaitForBus) {
-                        lowestTimeToWaitForBus = timeToWait;
-                        lowestTimeToWaitForBusID = id;
-                    }
-                }
+                shuttleA(line);
             }
         }
+
+        new Day13b();
+    }
+
+    private void shuttleA(String line) {
+
+        for(String stringID : line.split(",")) {
+            int id = Integer.parseInt(stringID);
+            long dividedBy =  timestamp / id;
+            long timeToWait = ((dividedBy+1) * id) - timestamp;
+            if( timeToWait < lowestTimeToWaitForBus) {
+                lowestTimeToWaitForBus = timeToWait;
+                lowestTimeToWaitForBusID = id;
+            }
+        }
+
         System.out.println("Day13 = " + (lowestTimeToWaitForBus * lowestTimeToWaitForBusID));
+
     }
 }
