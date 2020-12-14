@@ -51,12 +51,14 @@ public class Day13b {
             for(long i = departureTime;; i+=LCM) {
                 if( (i+ bus.getIndex()) % bus.getId() == 0) {
                     departureTime = i;
-                    System.out.println("New depart Time = " + departureTime);
                     break;
                 }
             }
             LCM = lcm(LCM, Long.valueOf((bus.getId())));
         }
+
+        System.out.println("Day13 B = " + departureTime);
+
     }
 
 
