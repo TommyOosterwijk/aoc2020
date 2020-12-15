@@ -1,3 +1,4 @@
+import days.Day15;
 import days.day1.Day1a;
 import days.day1.Day1b;
 import days.day10.Day10;
@@ -37,6 +38,7 @@ public class Main {
         Day12 day12 = new Day12();
         Day13 day13 = new Day13();
         day14 day14 = new day14();
+        Day15 day15 = new Day15();
 
     }
 }
