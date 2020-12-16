@@ -30,7 +30,7 @@ public class Day15 {
     }
 
     public void playMemory(long lastNumber) {
-        for(int i = memory.size()+1; i < 30000000; i++) {
+        for(int i = memory.size()+1; i < 100; i++) {
             if(!memory.containsKey(lastNumber)) {
                 memory.put(lastNumber, i);
                 lastNumber = 0;
