@@ -115,10 +115,8 @@ public class Day11 {
                 if(!(indexInRow == x && row == i) && isSeatInRow(i, x)) {
                     adjustSeats.add(getSeat(i,x));
                 }
-
             }
         }
-
         return adjustSeats;
     }
 
