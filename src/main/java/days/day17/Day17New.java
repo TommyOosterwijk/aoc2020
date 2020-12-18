@@ -13,7 +13,7 @@ public class Day17New {
     ArrayList<Dimension> dimensions = new ArrayList<>();
 
     public Day17New() throws FileNotFoundException, URISyntaxException {
-        Scanner scanner = utils.getScannerFromFileName("Day17.txt");
+        Scanner scanner = utils.getScannerFromFileName("Day17-example.txt");
 
         Dimension dimension = new Dimension();
 
@@ -26,9 +26,9 @@ public class Day17New {
         }
         dimensions.add(dimension);
 
-        printDimension(0);
         startCycle(1);
         System.out.println("Day17 = " + countActives());
+        new Day174D();
     }
 
     private int countActives() {
@@ -145,9 +145,8 @@ public class Day17New {
         addXToActiveDementions(0,0);
         addXToActiveDementions(dimensions.get(0).xSize-1, dimensions.get(0).xSize);
 
-        printDimension(cycleCounter);
         calculateChanges();
-        printDimension(cycleCounter);
+        //printDimension(cycleCounter);
         if(cycleCounter < 6) {
             startCycle(cycleCounter + 1);
         }
