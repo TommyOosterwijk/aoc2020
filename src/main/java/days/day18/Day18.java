@@ -12,16 +12,20 @@ public class Day18 {
     private Utils utils = new Utils();
 
     public Day18() throws FileNotFoundException, URISyntaxException {
+        System.out.println();System.out.println();System.out.println();System.out.println();System.out.println();
         Scanner scanner = utils.getScannerFromFileName("Day18.txt");
-        long totalCounter = 0l;
+        long totalCounterA = 0l;
+        long totalCounterB = 0l;
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             line = line.replaceAll("\\(", "\\( ");
             line = line.replaceAll("\\)", " \\)");
-            totalCounter+= doMath(line);
+            totalCounterA+= doMath(line);
+            totalCounterB+= doMathB(line);
         }
 
-        System.out.println("Day 18 = " + totalCounter);
+        System.out.println("Day 18 = " + totalCounterA);
+        System.out.println("Day 18B = " + totalCounterB);
     }
 
     enum MathActions {
@@ -65,6 +69,56 @@ public class Day18 {
                 }
             }
         }
+        return value;
+    }
+
+    private long doMathB(String numbersOrActions) {
+        ArrayList<Long> multiplyNumbers = new ArrayList<>();
+        long value = 0l;
+        MathActions mathAction = null;
+
+        for(int i = 0; i < numbersOrActions.length(); i++){
+            if(!(numbersOrActions.charAt(i) == ' ')) {
+                if (numbersOrActions.charAt(i) == '(') {
+                    long rightSideValue = doMathB(numbersOrActions.substring(i + 2));
+                    value = doMathAction(value, rightSideValue, mathAction);
+                    int leftCurlCounter = 1;
+                    for (int i2 = i+2; i2 < numbersOrActions.length(); i2++) {
+                        if (numbersOrActions.charAt(i2) == '(') {
+                            leftCurlCounter++;
+                        }
+
+                        if (numbersOrActions.charAt(i2) == ')') {
+                            leftCurlCounter--;
+                        }
+                        if (leftCurlCounter == 0) {
+                            i = i2;
+                            break;
+                        }
+                    }
+                } else if (numbersOrActions.charAt(i) == ')') {
+                    for(long number : multiplyNumbers) {
+                        value *= number;
+                    }
+                    return value;
+                } else if (numbersOrActions.charAt(i) == '+') {
+                    mathAction = MathActions.ADD;
+                } else if (numbersOrActions.charAt(i) == '*') {
+                    multiplyNumbers.add(value);
+                    value = 0l;
+                    mathAction = null;
+                } else {
+                    int number = Integer.parseInt(numbersOrActions.charAt(i)+"");
+                    value = doMathAction(value, number, mathAction);
+
+                }
+            }
+        }
+
+        for(long number : multiplyNumbers) {
+            value *= number;
+        }
+        System.out.println("Line value = " + value);
         return value;
     }
 

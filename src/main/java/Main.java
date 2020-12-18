@@ -9,6 +9,7 @@ import days.day13.Day13;
 import days.day14;
 import days.day17.Day17;
 import days.day17.Day17New;
+import days.day18.Day18;
 import days.day2.Day2;
 import days.day3.Day3;
 import days.day4.Day4;
@@ -44,6 +45,7 @@ public class Main {
         Day15 day15 = new Day15();
         Day16 day16 = new Day16();
         Day17New day17 = new Day17New();
+        Day18 day18 = new Day18();
 
     }
 }
