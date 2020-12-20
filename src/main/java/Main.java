@@ -11,6 +11,7 @@ import days.day17.Day17New;
 import days.day18.Day18;
 import days.day19.Day19;
 import days.day2.Day2;
+import days.day20.Day20;
 import days.day3.Day3;
 import days.day4.Day4;
 import days.day5.Day5;
@@ -46,7 +47,8 @@ public class Main {
 //        Day16 day16 = new Day16();
 //        Day17New day17 = new Day17New();
 //        Day18 day18 = new Day18();
-        Day19 day19 = new Day19();
+//        Day19 day19 = new Day19();
+        Day20 day20 = new Day20();
 
     }
 }
