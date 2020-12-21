@@ -11,12 +11,17 @@ public class Day20 {
 
     private Utils utils = new Utils();
     ArrayList<Image> cameraTiles = new ArrayList();
-    int finalGridColumnSize = 3;
-    //int finalGridColumnSize = 12;
+    //int finalGridColumnSize = 3;
+    int finalGridColumnSize = 12;
+    //int finalResizedColumnSize = 24;
+    int finalResizedColumnSize = 96;
+
     Image[][] finalGrid = new Image[finalGridColumnSize][finalGridColumnSize]; //TEST
+    String[][] resizedGrid = new String[finalResizedColumnSize][finalResizedColumnSize];
+    String[][] resizedSeaGrid = new String[finalResizedColumnSize][finalResizedColumnSize];
 
     public Day20() throws FileNotFoundException, URISyntaxException {
-        Scanner scanner = utils.getScannerFromFileName("Day20-example.txt");
+        Scanner scanner = utils.getScannerFromFileName("Day20.txt");
         Image image = null;
         String[][] tempGrid = null;
         int rowCounter = 0;
@@ -46,9 +51,147 @@ public class Day20 {
         labelImageType();
         calculateAnswerA();
         addFirstTile();
-        printGrandTile();
+        //printGrandTile();
         addOtherTiles();
-        printGrandTile();
+        //printGrandTile();
+        resizeGrid();
+        //printResizedGrid();
+        searchSeaMonster();
+        rotateResizedGrid();
+        searchSeaMonster();
+        rotateResizedGrid();
+        searchSeaMonster();
+        rotateResizedGrid();
+        searchSeaMonster();
+        flipResizedGrid();
+        searchSeaMonster();
+        rotateResizedGrid();
+        searchSeaMonster();
+        rotateResizedGrid();
+        searchSeaMonster();
+        rotateResizedGrid();
+        searchSeaMonster();
+        countSeaWater();
+        //printResizedSeaGrid();
+    }
+
+    private void countSeaWater() {
+        int counter = 0;
+        for(int y = 0; y < resizedSeaGrid.length; y++) {
+            for(int x = 0; x < resizedSeaGrid.length; x++) {
+                if(resizedSeaGrid[y][x].equals("#")) {
+                    counter++;
+                }
+            }
+        }
+        System.out.println("Day20B =" + counter);
+    }
+    private boolean p(String part) {
+        if( part.equals("#")) {
+            return true;
+        }
+        return false;
+    }
+    private void set(int y, int x) {
+        resizedSeaGrid[y][x] = "O";
+    }
+
+    private void rotateResizedGrid() {
+        String[][] tempGrid = new String[finalResizedColumnSize][finalResizedColumnSize];
+        String[][] tempSeaGrid = new String[finalResizedColumnSize][finalResizedColumnSize];
+        int newX = finalResizedColumnSize -1;
+        int newY;
+        for(int y = 0; y < finalResizedColumnSize; y++) {
+            newY = 0;
+            for(int x = 0; x < finalResizedColumnSize; x++) {
+                tempGrid[newY][newX] =  resizedGrid[y][x];
+                tempSeaGrid[newY][newX] =  resizedSeaGrid[y][x];
+                newY++;
+            }
+            newX--;
+        }
+
+        resizedGrid = tempGrid;
+        resizedSeaGrid = tempSeaGrid;
+    }
+
+    private void flipResizedGrid() {
+        String[][] tempGrid = new String[finalResizedColumnSize][finalResizedColumnSize];
+        String[][] tempSeaGrid = new String[finalResizedColumnSize][finalResizedColumnSize];
+
+        for(int y = 0; y < finalResizedColumnSize; y++) {
+            int newX = finalResizedColumnSize-1;
+            for(int x = 0; x < finalResizedColumnSize; x++) {
+                tempGrid[y][newX] =  resizedGrid[y][x];
+                tempSeaGrid[y][newX] =  resizedSeaGrid[y][x];
+                newX--;
+            }
+        }
+
+        resizedGrid = tempGrid;
+        resizedSeaGrid = tempSeaGrid;
+    }
+
+    private void searchSeaMonster() {
+        for(int y = 1; y < resizedGrid.length-1; y++) {
+            for(int x = 0; x < resizedGrid.length - 19; x++) {
+                if(p(resizedGrid[y][x]) && p(resizedGrid[y+1][x+1]) && p(resizedGrid[y+1][x+4]) && p(resizedGrid[y][x+5])
+                        && p(resizedGrid[y][x+6]) && p(resizedGrid[y+1][x+7]) && p(resizedGrid[y+1][x+10]) && p(resizedGrid[y][x+11])
+                        && p(resizedGrid[y][x+12]) && p(resizedGrid[y+1][x+13]) && p(resizedGrid[y+1][x+16]) && p(resizedGrid[y][x+17])
+                        && p(resizedGrid[y][x+18]) && p(resizedGrid[y-1][x+18]) && p(resizedGrid[y][x+19])) {
+                    set(y,x);
+                    set(y+1,x+1);
+                    set(y+1,x+4);
+                    set(y,x+5);
+                    set(y,x+6);
+                    set(y+1,x+7);
+                    set(y+1,x+10);
+                    set(y,x+11);
+                    set(y,x+12);
+                    set(y+1,x+13);
+                    set(y+1,x+16);
+                    set(y,x+17);
+                    set(y,x+18);
+                    set(y-1,x+18);
+                    set(y,x+19);
+                }
+            }
+        }
+    }
+
+    private void resizeGrid() {
+        for (int finalY = 0; finalY < finalGridColumnSize; finalY++) {
+            Image[] lineGrid = finalGrid[finalY];
+            for (int y = 1; y < 9; y++) {
+                for (int i = 0; i < lineGrid.length; i++) {
+                    Image tempImage = lineGrid[i];
+                    if (tempImage != null) {
+                        for (int x = 1; x < 9; x++) {
+                            resizedGrid[(finalY*8) +y - 1][(i*8) + x -1] = tempImage.imageGrid[y][x];
+                            resizedSeaGrid[(finalY*8) +y - 1][(i*8) + x -1] = tempImage.imageGrid[y][x];
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void printResizedGrid() {
+        for(int y = 0; y < resizedGrid.length; y++) {
+            for(int x = 0; x < resizedGrid.length; x++) {
+                System.out.print(resizedGrid[y][x]);
+            }
+            System.out.println();
+        }
+    }
+
+    private void printResizedSeaGrid() {
+        for(int y = 0; y < resizedSeaGrid.length; y++) {
+            for(int x = 0; x < resizedSeaGrid.length; x++) {
+                System.out.print(resizedSeaGrid[y][x]);
+            }
+            System.out.println();
+        }
     }
 
     private boolean doesEdgeExistInTilesLeft(String edge, ArrayList<Integer> usedImages) {
@@ -186,7 +329,6 @@ public class Day20 {
                                 }
 
                                 if (targetFound) {
-                                    System.out.println("Found correct ID " + targetImage.id);
                                     boolean fitsNeighbors = false;
                                     boolean didFlip = false;
                                     int rotateCounter = 0;
@@ -261,7 +403,6 @@ public class Day20 {
                                 }
 
                                 if (targetFound) {
-                                    System.out.println("Found correct ID " + targetImage.id);
                                     boolean fitsNeighbors = false;
                                     boolean didFlip = false;
                                     int rotateCounter = 0;
@@ -317,16 +458,6 @@ public class Day20 {
                     System.out.print(" ");
                 }
                 System.out.println();
-            }
-            System.out.println();
-        }
-    }
-
-    private void printTile(Image image) {
-        System.out.println("Camera id " + image.id);
-        for (int y = 0; y < 10; y++) {
-            for (int x = 0; x < 10; x++) {
-                System.out.print(image.imageGrid[y][x] + " ");
             }
             System.out.println();
         }
